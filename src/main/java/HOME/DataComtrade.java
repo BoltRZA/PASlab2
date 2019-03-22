@@ -15,11 +15,10 @@ public class DataComtrade {
 	private String line;
 	private String[] lineData;
 
-	private double k1[]= new double [2];
-	private double k2[]=new double [2];
+	private double k1[]= new double [6];
+	private double k2[]=new double [6];
 	//private double U[]=new double [4001];
 	//private double I[]=new double [4001];
-	private Chart ch;
 	private Rele r;
 
 
@@ -44,14 +43,34 @@ public class DataComtrade {
 				//	System.out.println(line);
 				if (lineNum==2) {
 					lineData = line.split(",");
-					k1[0]=Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[0]=Double.parseDouble(lineData[6]);
+					k1[0]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[0]= 1000 * Double.parseDouble(lineData[6]);
 
 				}
 				if (lineNum==3) {
 					lineData = line.split(",");
-					k1[1]=Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[1]=Double.parseDouble(lineData[6]);
+					k1[1]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[1]= 1000 * Double.parseDouble(lineData[6]);
+				}
+				if (lineNum==4) {
+					lineData = line.split(",");
+					k1[2]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[2]= 1000 * Double.parseDouble(lineData[6]);
+				}
+				if (lineNum==5) {
+					lineData = line.split(",");
+					k1[3]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[3]= 1000 * Double.parseDouble(lineData[6]);
+				}
+				if (lineNum==6) {
+					lineData = line.split(",");
+					k1[4]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[4]= 1000 * Double.parseDouble(lineData[6]);
+				}
+				if (lineNum==7) {
+					lineData = line.split(",");
+					k1[5]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[5]= 1000 * Double.parseDouble(lineData[6]);
 				}
 				lineNum++;
 			}
@@ -69,28 +88,44 @@ public class DataComtrade {
 			e.printStackTrace();
 			//трайкэтч поможет игнорировать ошибку в ктче вывод ошибки и прога продолжит выполнение а не остановится)
 		}
-		Furie f1 = new Furie();
+		Furie faV = new Furie();
+		Furie fbV = new Furie();
+		Furie fcV = new Furie();
+		Furie faN = new Furie();
+		Furie fbN = new Furie();
+		Furie fcN = new Furie();
 		MeanValue mv = new MeanValue();
-		double rms = 0; 
+		double IaVrms = 0;
+		double IbVrms = 0;
+		double IcVrms = 0;
+		double IaNrms = 0;
+		double IbNrms = 0;
+		double IcNrms = 0;
+
 		try {
 			int lineNum = 0;
 			while((line = br.readLine())!=null) {
 				lineData = line.split(",");
-				rms=f1.getRMS(Double.parseDouble(lineData[3])*k1[1]+k2[1]);
-				ch.setData1(Double.parseDouble(lineData[3])*k1[1]+k2[1]);
+				IaVrms = faV.getRMS(Double.parseDouble(lineData[2])*k1[0]+k2[0]);
+				IbVrms = fbV.getRMS(Double.parseDouble(lineData[3])*k1[1]+k2[1]);
+				IcVrms = fcV.getRMS(Double.parseDouble(lineData[4])*k1[2]+k2[2]);
+				IaNrms = faN.getRMS(Double.parseDouble(lineData[5])*k1[3]+k2[3]);
+				IbNrms = fbN.getRMS(Double.parseDouble(lineData[6])*k1[4]+k2[4]);
+				IcNrms = fcN.getRMS(Double.parseDouble(lineData[7])*k1[5]+k2[5]);
 
-				ch.setData2(rms);
-				ch.setData3(mv.get(Double.parseDouble(lineData[3])*k1[1]+k2[1]));
-				System.out.println(Double.parseDouble(lineData[3])*k1[1]+k2[1]);
-				r.chekTrip(rms);
-				//System.out.println(line);
-				//int i=0;
-				//for (int x = 0; x >4001; x++ ) {
-				//if (lineNum==x) {
-				//	U[x]=Double.parseDouble(lineData[2]);
-				//	I[x]=Double.parseDouble(lineData[3]);	
-				//}
-				//}												
+				Charts.addAnalogData(0,0,Double.parseDouble(lineData[2])*k1[0]+k2[0]);
+				Charts.addAnalogData(0,1,Double.parseDouble(lineData[3])*k1[1]+k2[1]);
+				Charts.addAnalogData(0,2,Double.parseDouble(lineData[4])*k1[2]+k2[2]);
+				Charts.addAnalogData(1,0,Double.parseDouble(lineData[5])*k1[3]+k2[3]);
+				Charts.addAnalogData(1,1,Double.parseDouble(lineData[6])*k1[4]+k2[4]);
+				Charts.addAnalogData(1,2,Double.parseDouble(lineData[7])*k1[5]+k2[5]);
+				Charts.addAnalogData(2,0,IaVrms);
+				Charts.addAnalogData(2,1,IbVrms);
+				Charts.addAnalogData(2,2,IcVrms);
+				Charts.addAnalogData(3,0,IaNrms);
+				Charts.addAnalogData(3,1,IbNrms);
+				Charts.addAnalogData(3,2,IcNrms);
+
 			}
 
 		} catch (IOException e) {			
@@ -101,7 +136,6 @@ public class DataComtrade {
 		//System.err.println(U);
 		//System.err.println(I);
 	}
-	public void setChart(Chart ch) {this.ch = ch;}
 
 	public void setRele(Rele r) {this.r = r;}
 }
