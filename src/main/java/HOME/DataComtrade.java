@@ -43,34 +43,34 @@ public class DataComtrade {
 				//	System.out.println(line);
 				if (lineNum==2) {
 					lineData = line.split(",");
-					k1[0]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[0]= 1000 * Double.parseDouble(lineData[6]);
+					k1[0]= Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[0]= Double.parseDouble(lineData[6]);
 
 				}
 				if (lineNum==3) {
 					lineData = line.split(",");
-					k1[1]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[1]= 1000 * Double.parseDouble(lineData[6]);
+					k1[1]= Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[1]= Double.parseDouble(lineData[6]);
 				}
 				if (lineNum==4) {
 					lineData = line.split(",");
-					k1[2]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[2]= 1000 * Double.parseDouble(lineData[6]);
+					k1[2]= Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[2]= Double.parseDouble(lineData[6]);
 				}
 				if (lineNum==5) {
 					lineData = line.split(",");
-					k1[3]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[3]= 1000 * Double.parseDouble(lineData[6]);
+					k1[3]= Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[3]= Double.parseDouble(lineData[6]);
 				}
 				if (lineNum==6) {
 					lineData = line.split(",");
-					k1[4]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[4]= 1000 * Double.parseDouble(lineData[6]);
+					k1[4]= Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[4]= Double.parseDouble(lineData[6]);
 				}
 				if (lineNum==7) {
 					lineData = line.split(",");
-					k1[5]= 1000 * Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
-					k2[5]= 1000 * Double.parseDouble(lineData[6]);
+					k1[5]= Double.parseDouble(lineData[5]); // koefficient preobrazovaniya
+					k2[5]= Double.parseDouble(lineData[6]);
 				}
 				lineNum++;
 			}
@@ -125,6 +125,7 @@ public class DataComtrade {
 				Charts.addAnalogData(3,0,IaNrms);
 				Charts.addAnalogData(3,1,IbNrms);
 				Charts.addAnalogData(3,2,IcNrms);
+
 
 			}
 

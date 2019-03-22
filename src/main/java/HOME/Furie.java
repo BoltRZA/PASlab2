@@ -29,6 +29,26 @@ public class Furie {
 		if (num==80) num=0;
 		return Math.sqrt(sigX*sigX+sigY*sigY);	
 	}
+	public double getReal(double instValue){
+		sigXs=sigXs+ instValue*cos[num]-buffer[num]*cos[num];
+		sigYs=sigYs +instValue*sin[num]-buffer[num]*sin[num];
+		sigX=sigXs*kf;
+		sigY=sigYs*kf;
+		buffer[num] = instValue;
+		num++;
+		if (num==80) num=0;
+		return sigX;
+	}
+	public double getImaginary(double instValue){
+		sigXs=sigXs+ instValue*cos[num]-buffer[num]*cos[num];
+		sigYs=sigYs +instValue*sin[num]-buffer[num]*sin[num];
+		sigX=sigXs*kf;
+		sigY=sigYs*kf;
+		buffer[num] = instValue;
+		num++;
+		if (num==80) num=0;
+		return sigY;
+	}
 	
 	int w = 128;
 	public void setDataW(int j) {
